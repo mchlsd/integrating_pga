@@ -1,0 +1,78 @@
+* Z:\home\michel\Simulações_artigo\Incerteza de ganho Cs Co\Copy_of_montecarlo_nocs_noco\sim\montecarlo_tmp.asc
+V1 VCC 0 5
+V2 0 VEE 5
+Vfi fi 0 PULSE(0 5 0 1n 1n 250u 500u)
+Vteta teta 0 PULSE(0 5 0 1n 1n {theta} 500u)
+VP vip 0 1.7
+VN vin 0 1.6
+Cs vcp vcn 100n
+Ra vn N001 {mc(10k,r_tol)}
+Co vo 0 10n
+A2 0 N003 0 teta 0 nfpt N004 0 AND Vhigh=5 TD=5n
+A3 0 fi 0 fi 0 N003 0 0 AND Vhigh=5 TD=5n
+XU1 vp vn VCC VEE va OPA191
+XX1 vip fi vcp NC_01 sw4522no
+XX2 vin fi vcn NC_02 sw4522no
+XX3 vcp fi vp NC_03 sw4521nc
+XX4 va teta vo NC_04 sw4521nc
+XX5 vp fi 0 NC_05 sw4522no
+XX6 vn fi N002 NC_06 sw4522no
+XX7 N001 nfpt 0 NC_07 sw4521nc
+XX8 vcn fi 0 NC_08 sw4521nc
+Ra1 va vn {mc(10k,r_tol)}
+
+* block symbol definitions
+.subckt sw4522no Vi Vc Vo vs
+Cds Vo Vi 2p
+S2 Vi Vo vs 0 SW1
+A1 Vc 0 0 0 0 0 N002 0 BUF VHigh=5 TD=60n
+D2 N002 N003 Ideal
+A2 Vc 0 0 0 0 0 N001 0 BUF Vhigh=5 TD=20n
+D3 vs N001 Ideal
+C5 vs 0 0.1p
+R1 vs N003 10k
+Cd 0 Vo 2p
+Cs 0 Vi 2p
+.model sw1 sw(Ron=100 Roff=100G Vt=2.5 Vh=-0.5 Lser=0 Vser=0)
+.model Ideal D(Ron=1 Roff=1G Vfwd=0 Vrev=10 Rrev=1G)
+.ends sw4522no
+
+.subckt sw4521nc Vi Vc Vo vs
+Cds Vo Vi 2p
+S2 Vi Vo vs 0 SW1
+D2 N002 N003 Ideal
+D3 vs N001 Ideal
+C5 vs 0 0.1p
+R1 vs N003 10k
+Cd 0 Vo 2p
+A3 Vc 0 0 0 0 N001 0 0 BUF Vhigh=5 TD=20n
+A4 Vc 0 0 0 0 N002 0 0 BUF Vhigh=5 TD=60n
+Cs 0 Vi 2p
+.model sw1 sw(Ron=100 Roff=100G Vt=2.5 Vh=-0.5 Lser=0 Vser=0)
+.model Ideal D(Ron=1 Roff=1G Vfwd=0 Vrev=10 Rrev=1G)
+.ends sw4521nc
+
+.model D D
+.lib C:\users\michel\My Documents\LTspiceXVII\lib\cmp\standard.dio
+.ic v(vo)=0
+.save v(va) v(vo) v(vp) v(vn) v(vcp) v(vcn) v(vip) v(vin)
+.option plotwinsize=0
+;options NoOpIter
+;options GminSteps=0
+;options SrcSteps=0
+.tran 0 1.500m 1.000m 50.0n startup
+* +10n
+* Differential
+.param s_tol=0.21
+.param r_tol=0.05
+.param c_tol=0.05
+;step param run 1 50 1
+;step param theta list 400u 450u 490u
+.param theta=490u
+.options gmin=1e-10
+.options abstol=1e-10
+.options reltol=0.003
+.options cshunt=1e-15
+.lib C:\Program Files\LTC\LTspiceXVII\lib\sym\Opamps\OPA191.cir
+.backanno
+.end

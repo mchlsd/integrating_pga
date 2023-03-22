@@ -1,0 +1,102 @@
+
+
+\begin{equation}
+V_A=V_{C_S}\left(1+\frac{T_A}{R \cdot C_A}\right) \label{eq1}
+\end{equation}
+
+
+\begin{equation}
+G=1+\frac{T_A}{R \cdot C_A} \label{eq2}
+\end{equation}
+
+
+\begin{equation}
+V_{C_{S}} = V_I \cdot \left( 1-{e^{-{\frac {T_I}{R_S C_S}}}} \right)   
+\end{equation}
+
+\begin{equation}
+\sigma_{V_{C_{S}}} = \abs{\dv{V_{C_{S}}}{R_S C_S}} \cdot \sigma_{R_S C_S}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_{C_{S}}} = e^{-{\frac {T_I}{R_S C_S}}} \abs{\frac{V_I T_I}{{(R_S C_S)}^2}} \sigma_{R_S C_S}
+\end{equation}
+
+
+\begin{equation}
+\sigma_{V_A} = \abs{\dv{V_A}{R_A C_A}} \cdot \sigma_{R_A C_A}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_A} = \abs{\frac{V_{C_{S}}T_A}{(R_A C_A)^2}} \cdot \sigma_{R_A C_A}
+\end{equation}
+
+
+\begin{equation}
+V_O = V_A \cdot \left( 1-{e^{-{\frac {T_O}{R_O C_O}}}} \right)   
+\end{equation}
+
+\begin{equation}
+\sigma_{V_O} = \abs{\dv{V_O}{R_O C_O}} \cdot \sigma_{R_O C_O}
+\end{equation}
+
+
+\begin{equation}
+\sigma_{V_O} = e^{-{\frac {T_O}{R_O C_O}}} \abs{\frac{V_A T_O}{{(R_O C_O)}^2}} \sigma_{R_O C_O}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_{C_{S}}} = \sqrt{\left( \sigma_{V_I} \cdot \pdv{V_{C_S}}{V_I} \right)^2 + \left( \sigma_{R_S C_S} \cdot \pdv{V_{C_S}}{R_S C_S} \right)^2}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_{C_{S}}} = \sqrt{ \sigma_{V_I}^2 \left(1-e^{-{\frac{T_I}{R_S C_S}}} \right)^2 + \frac{\sigma_{R_S C_S}^2 V_I^2 T_I^2 \left(e^{-{\frac{T_I}{R_S C_S}}}\right)^2}{(R_S C_S)^4}}
+\end{equation}
+
+\begin{equation}
+V_O = V_I \cdot \left( 1-{e^{-{\frac {T_I}{R_S C_S}}}} \right)  \cdot \left( 1+\frac{T_A}{R \cdot C_A} \right)\cdot \left( 1-{e^{-{\frac {T_O}{R_O C_O}}}} \right)   
+\end{equation}
+
+\begin{equation}
+\sigma_{V_O} = \sqrt{\left( \sigma_{V_A} \cdot \pdv{V_O}{V_A} \right)^2 + \left( \sigma_{R_O C_O} \cdot \pdv{V_O}{R_O C_O} \right)^2}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_O} = \sqrt{ \sigma_{V_A}^2 \left(1-e^{-{\frac{T_O}{R_O C_O}}} \right)^2 + \frac{\sigma_{R_O C_O}^2 V_A^2 T_O^2 \left(e^{-{\frac{T_O}{R_O C_O}}}\right)^2}{(R_O C_O)^4}}
+\end{equation}
+
+
+\begin{equation}
+\begin{split}
+\sigma_{V_O} = \Bigg(\left( \sigma_{V_I} \cdot \pdv{V_O}{V_I} \right)^2 + \left( \sigma_{R_S C_S} \cdot \pdv{V_O}{R_S C_S} \right)^2 + \\ 
+\left( \sigma_{R_A C_A} \cdot \pdv{V_O}{R_A C_A} \right)^2 + \left( \sigma_{R_O C_O} \cdot \pdv{V_O}{R_O C_O} \right)^2 \Bigg)^{1/2}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\lim_{T_I\to\infty} V_{C_S} = \lim_{T_I\to\infty} V_I \cdot \left( 1-{e^{-{\frac {T_I}{R_S C_S}}}} \right) = V_I
+\end{equation}
+
+\begin{equation}
+\lim_{T_O\to\infty} V_O = \lim_{T_O\to\infty} V_A \cdot \left( 1-{e^{-{\frac {T_O}{R_O C_O}}}} \right) = V_A
+\end{equation}
+
+\begin{equation}
+\sigma_{V_O} = \sqrt{\left( \sigma_{V_I} \cdot \pdv{V_O}{V_I} \right)^2 + \left( \sigma_{R_A C_A} \cdot \pdv{V_O}{R_A C_A} \right)^2}
+\end{equation}
+
+\begin{equation}
+\sigma_{V_O} = \sqrt{ \sigma_{V_I}^2 \left(1+{\frac{T_A}{R_A C_A}} \right)^2 + \frac{\sigma_{R_A C_A}^2 V_I^2 T_A^2}{(R_A C_A)^4}}
+\end{equation}
+
+
+\begin{equation}
+v_o =\frac{\omega_t }{s+\omega_0 }(v_p -v_n)\label{eq3}
+\end{equation}
+
+where $\omega_t$ is the \textit{GBW} and $\omega_0$ is the open loop cutoff frequency, given by $\omega_t /A_{OL}$, and $A_{OL}$ is the open loop gain. Consider the integrator model given by:
+\begin{equation}
+    v_n =\frac{s}{s+\omega_c }v_o \label{eq4}
+\end{equation}
+where $\omega_c =\frac{1}{R\ldotp C}$.
+

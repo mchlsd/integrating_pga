@@ -1,0 +1,1123 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 20 179 575 612
+%%Creator: FreeHEP Graphics2D Driver
+%%Producer: org.freehep.graphicsio.ps.PSGraphics2D Revision: 12753 
+%%For: 
+%%Title: 
+%%CreationDate: Thursday, January 14, 2021 6:47:11 PM BRT
+%%LanguageLevel: 3
+%%EndComments
+%%BeginProlog
+100 dict dup begin
+
+%
+% File: org/freehep/graphicsio.ps/PSProlog.txt
+% Author: Charles Loomis
+%
+
+% Redefinitions which save some space in the output file.  These are also
+% the same as the PDF operators.
+/q {gsave} def
+/Q {grestore} def
+
+/n {newpath} def
+/m {moveto} def
+/l {lineto} def
+/c {curveto} def
+/h {closepath} def
+
+/re {4 -2 roll moveto
+     dup 0 exch rlineto exch 0 rlineto
+     neg 0 exch rlineto closepath} def
+
+/f {fill} def
+/f* {eofill} def
+/F {gsave vg&FC fill grestore} def
+/F* {gsave vg&FC eofill grestore} def
+
+/s {closepath stroke} def
+/S {stroke} def
+
+/b {closepath gsave vg&FC fill grestore
+    gsave stroke grestore newpath} def
+/B {gsave vg&FC fill grestore gsave stroke grestore newpath} def
+/b* {closepath gsave vg&FC eofill grestore
+    gsave stroke grestore newpath} def
+/B* {gsave vg&FC eofill grestore gsave stroke grestore newpath} def
+
+/g {1 array astore /vg&fcolor exch def} def
+/G {setgray} def
+/k {4 array astore /vg&fcolor exch def} def
+/K {setcmykcolor} def
+/rg {3 array astore /vg&fcolor exch def} def
+/RG {setrgbcolor} def
+
+% Initialize the fill color.
+0 0 0 rg
+
+/vg&FC {mark vg&fcolor aload pop
+        counttomark 1 eq {G} if
+        counttomark 3 eq {RG} if
+        counttomark 4 eq {K} if
+        cleartomark } def
+
+/vg&DFC {/vg&fcolor exch def} def
+
+/vg&C {mark exch aload pop
+       counttomark 1 eq {G} if
+       counttomark 3 eq {RG} if
+       counttomark 4 eq {K} if
+       cleartomark } def
+
+/w {setlinewidth} def
+/j {setlinejoin} def
+/J {setlinecap} def
+/M {setmiterlimit} def
+/d {setdash} def
+/i {setflat} def
+
+/W {clip} def
+/W* {eoclip} def
+
+% Setup the default graphics state.
+% (black; 1 pt. linewidth; miter join; butt-ends; solid)
+/defaultGraphicsState {0 g 1 w 0 j 0 J [] 0 d} def
+
+% Emulation of the rectangle operators for PostScript implementations
+% which do not implement all Level 2 features.  This is an INCOMPLETE
+% emulation; only the "x y width height rect..." form is emulated.
+/*rf {gsave newpath re fill grestore} def
+/*rs {gsave newpath re stroke grestore} def
+/*rc {newpath re clip} def
+/rf  /rectfill where {pop /rectfill}{/*rf} ifelse load def
+/rs  /rectstroke where {pop /rectstroke}{/*rs} ifelse load def
+/rc  /rectclip where {pop /rectclip}{/*rc} ifelse load def
+
+% Emulation of the selectfont operator.  This includes a 20% increase in
+% the fontsize which is necessary to get sizes similar to the Java fonts.
+/*sf {exch findfont exch
+      dup type /arraytype eq {makefont}{scalefont} ifelse setfont} bind def
+/sf /selectfont where {pop {1.2 mul selectfont}}{{1.2 mul *sf}} ifelse def
+
+% Special version of stroke which allows the dash pattern to continue
+% across path segments.  (This may be needed for PostScript although
+% modern printers seem to do this correctly.)
+/vg&stroke {
+  currentdash pop length 0 eq
+  {stroke}
+  {
+    currentdash /vg&doffset exch def pop
+    flattenpath
+    {m vg&resetdash}
+    {2 copy
+     currentpoint
+     3 -1 roll sub dup mul
+     3 1 roll sub dup mul
+     add sqrt
+     3 1 roll l
+     currentdash 3 -1 roll add setdash}
+     {}
+     {h vg&resetdash}
+     pathforall
+     stroke
+     vg&resetdash
+  } ifelse
+} def
+/vg&resetdash {currentdash pop vg&doffset setdash} def
+
+% Initialize variables for safety.
+/delta 0 def
+/xv 0 def  /yv 0 def  /width 0 def  /height 0 def
+
+% Initialize to portrait INTERNATIONAL (Letter-height, A4-width) page.
+/pw 595 def  /ph 791  def  /po true def /ftp false def
+
+% Initialize margins to 20 points.
+/ml 20 def  /mr 20 def  /mt 20 def  /mb 20 def
+
+% Temporary matrices.
+/smatrix 0 def  /nmatrix 0 def
+
+% set page size (usage: <page width><page height> setpagesize)
+/setpagesize {/ph exch def /pw exch def} def
+
+% set page orientation (usage: portrait or landscape)
+/portrait {/po true def} def
+/landscape {/po false def} def
+
+% force natural size for image (usage: naturalsize)
+/naturalsize {/ftp false def} def
+
+% resize image to fill page (usage: fittopage)
+/fittopage {/ftp true def} def
+
+% set margins of the page (usage: <left><bottom><top><right> setmargins)
+/setmargins {/mr exch def /mt exch def /mb exch def /ml exch def} def
+
+% set the graphic's size (usage: <width><height> setsize)
+/setsize {/gh exch def /gw exch def} def
+
+% set the graphic's origin (usage: <x0><y0> setorigin)
+/setorigin {/gy exch def /gx exch def} def
+
+% calculate image center
+/imagecenter {pw ml sub mr sub 2 div ml add
+              ph mt sub mb sub 2 div mb add} def
+
+% calculate the necessary scaling
+/imagescale {po {gw}{gh} ifelse pw ml sub mr sub div
+             po {gh}{gw} ifelse ph mt sub mb sub div
+             2 copy lt {exch} if pop
+             ftp not {1 2 copy lt {exch} if pop} if
+             1 exch div /sfactor exch def
+             /gw gw sfactor mul def /gh gh sfactor mul def} def
+
+% calculate image origin
+/imageorigin {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div po {add}{sub} ifelse} def
+
+% calculate the clipping origin
+/cliporigin  {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub floor
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div sub floor} def
+
+% Set the clipping region to the bounding box.
+/cliptobounds {cliporigin po {gw}{gh} ifelse 1 add
+                          po {gh}{gw} ifelse 1 add rc} def
+
+% set the base transformation matrix (usage: setbasematrix)
+/setbasematrix {imageorigin translate
+                po {0}{90} ifelse rotate
+                sfactor sfactor neg scale
+                /defaultmatrix matrix currentmatrix def} def
+
+% The lower-right bias in drawing 1 pt. wide lines.
+/bias  {q 0.5 0.5 translate} def
+/unbias {Q} def
+
+% Define the composite fonts used to print Unicode strings.
+% Undefine particular values in an encoding array.
+/vg&undef { {exch dup 3 -1 roll /.notdef put} forall } def
+/vg&redef { {3 -1 roll dup 4 2 roll put} forall } def
+
+% usage: key encoding basefontname vg&newbasefont font
+/vg&newbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: key encoding basefontname vg&newskewedbasefont font
+/vg&newskewedbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    exch FontMatrix exch matrix concatmatrix /FontMatrix exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: basekey suffix vg&nconcat name
+/vg&nconcat {
+  2 {dup length string cvs exch} repeat
+  dup length 3 -1 roll dup length 3 -1 roll add string
+  dup 0 4 -1 roll dup length 5 1 roll putinterval
+  dup 4 -2 roll exch putinterval cvn
+} def
+
+%usage: fontname vg&skewmatrix matrix
+/vg&skewmatrix {
+findfont dup /FontInfo known
+  {
+    /FontInfo get dup /ItalicAngle known
+    {
+      [ 1 0 4 -1 roll /ItalicAngle get neg dup sin exch cos div 1 0 0 ]
+    }
+    {pop matrix} ifelse
+  }
+  {pop matrix} ifelse
+} def
+
+% usage: newfontname basefontname vg&newcompositefont --
+/vg&newcompositefont {
+/vg&fstyle exch def
+/vg&bfont exch def
+/vg&fname exch def
+<<
+/FontStyleBits vg&fstyle
+/FontType 0
+/FontMatrix matrix
+/FontName vg&fname
+/FMapType 2
+/Encoding [ 0 1 255 {pop 6} for ]
+          dup 16#00 0 put % Latin
+          dup 16#03 1 put % Greek
+          dup 16#20 2 put % Punctuation
+          dup 16#21 3 put % Arrows
+          dup 16#22 4 put % MathOps
+          dup 16#27 5 put % Dingbats
+
+/FDepVector [
+vg&bfont /-UC-Latin vg&nconcat UCLatinEncoding
+vg&bfont vg&newbasefont
+
+vg&bfont vg&skewmatrix
+vg&bfont /-UC-Greek vg&nconcat UCGreekEncoding
+/Symbol vg&newskewedbasefont
+
+vg&bfont /-UC-Punctuation vg&nconcat UCPunctuationEncoding
+vg&bfont vg&newbasefont
+
+/Arrows-UC findfont
+/MathOps-UC findfont
+/Dingbats-UC findfont
+/Undefined-UC findfont ]
+>>
+vg&fname exch definefont pop
+} def
+
+% Null encoding vector (all elements set to .notdef)
+/NullEncoding [ 256 {/.notdef} repeat ] def
+
+% Unicode Latin encoding (unicode codes \u0000-\u00ff)
+/UCLatinEncoding
+  ISOLatin1Encoding dup length array copy
+  dup 16#60 /grave put
+  [ 16#90 16#91 16#92 16#93 16#94 16#95 16#96
+    16#97 16#98 16#9a 16#9b 16#9d 16#9e 16#9f
+  ] vg&undef
+  def
+
+% Unicode Greek encoding (unicode codes \u0370-\u03ff)
+/UCGreekEncoding
+  NullEncoding dup length array copy
+  << 16#91 /Alpha    16#92 /Beta      16#93 /Gamma    16#94 /Delta
+     16#95 /Epsilon  16#96 /Zeta      16#97 /Eta      16#98 /Theta
+     16#99 /Iota     16#9a /Kappa     16#9b /Lambda   16#9c /Mu
+     16#9d /Nu       16#9e /Xi        16#9f /Omicron  16#a0 /Pi
+     16#a1 /Rho      16#a3 /Sigma     16#a4 /Tau      16#a5 /Upsilon
+     16#a6 /Phi      16#a7 /Chi       16#a8 /Psi      16#a9 /Omega
+     16#b1 /alpha    16#b2 /beta      16#b3 /gamma    16#b4 /delta
+     16#b5 /epsilon  16#b6 /zeta      16#b7 /eta      16#b8 /theta
+     16#b9 /iota     16#ba /kappa     16#bb /lambda   16#bc /mu
+     16#bd /nu       16#be /xi        16#bf /omicron  16#c0 /pi
+     16#c1 /rho      16#c2 /sigma1    16#c3 /sigma    16#c4 /tau
+     16#c5 /upsilon  16#c6 /phi1      16#c7 /chi      16#c8 /psi
+     16#c9 /omega    16#7e /semicolon 16#87 /dotmath  16#d1 /theta1
+     16#d2 /Upsilon1 16#d5 /phi       16#d6 /omega1
+  >> vg&redef
+  def
+
+% Unicode punctuation encoding (unicode codes \u2000-\u206f)
+/UCPunctuationEncoding
+  NullEncoding dup length array copy
+  << 16#10 /hyphen          16#11 /hyphen              16#12 /endash
+     16#13 /emdash          16#18 /quoteleft           16#19 /quoteright
+     16#1a /quotesinglbase  16#1b /quotesingle         16#1c /quotedblleft
+     16#1d /quotedblright   16#1e /quotedblbase        16#1f /quotedbl
+     16#20 /dagger          16#21 /daggerdbl           16#22 /bullet
+     16#24 /period          16#26 /ellipsis            16#27 /periodcentered
+     16#30 /perthousand     16#44 /fraction
+     16#70 /zerosuperior    16#74 /foursuperior        16#75 /fivesuperior
+     16#76 /sixsuperior     16#77 /sevensuperior       16#78 /eightsuperior
+     16#79 /ninesuperior    16#7b /hyphensuperior      16#7d /parenleftsuperior
+     16#7e /parenrightsuperior
+     16#80 /zeroinferior    16#84 /fourinferior        16#85 /fiveinferior
+     16#81 /oneinferior     16#82 /twoinferior         16#83 /threeinferior
+     16#86 /sixinferior     16#87 /seveninferior       16#88 /eightinferior
+     16#89 /nineinferior    16#8b /hypheninferior      16#8d /parenleftinferior
+     16#8e /parenrightinferior
+  >> vg&redef
+  def
+
+% Unicode mathematical operators encoding (unicode codes \u2200-\u22ff)
+/UCMathOpsEncoding
+  NullEncoding dup length array copy
+  << 16#00 /universal       16#02 /partialdiff         16#03 /existential
+     16#05 /emptyset        16#06 /Delta               16#07 /gradient
+     16#08 /element         16#09 /notelement          16#0b /suchthat
+     16#0f /product         16#11 /summation           16#12 /minus
+     16#15 /fraction        16#17 /asteriskmath        16#19 /bullet
+     16#1a /radical         16#1d /proportional        16#1e /infinity
+     16#20 /angle           16#23 /bar                 16#27 /logicaland
+     16#28 /logicalor       16#29 /intersection        16#2a /union
+     16#2b /integral        16#34 /therefore           16#36 /colon
+     16#3c /similar         16#45 /congruent           16#48 /approxequal
+     16#60 /notequal        16#61 /equivalence         16#64 /lessequal
+     16#65 /greaterequal    16#82 /propersubset        16#83 /propersuperset
+     16#86 /reflexsubset    16#87 /reflexsuperset      16#95 /circleplus
+     16#97 /circlemultiply  16#a5 /perpendicular       16#03 /existential
+     16#c0 /logicaland      16#c1 /logicalor           16#c2 /intersection
+     16#c3 /union           16#c4 /diamond             16#c5 /dotmath
+  >> vg&redef
+  def
+
+% Unicode arrows encoding (unicode codes \u2190-\u21ff)
+% Also includes those "Letterlike" unicode characters
+% which are available in the symbol font. (unicode codes \u2100-\u214f)
+/UCArrowsEncoding
+  NullEncoding dup length array copy
+  << 16#11 /Ifraktur        16#1c /Rfraktur            16#22 /trademarkserif
+     16#35 /aleph
+     16#90 /arrowleft       16#91 /arrowup             16#92 /arrowright
+     16#93 /arrowdown       16#94 /arrowboth           16#d0 /arrowdblleft
+     16#d1 /arrowdblup      16#d2 /arrowdblright       16#d3 /arrowdbldown
+     16#d4 /arrowdblboth
+  >> vg&redef
+  def
+
+/ZapfDingbats findfont /Encoding get
+dup length array copy /UCDingbatsEncoding exch def
+16#20 1 16#7f {
+  dup 16#20 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+16#a0 1 16#ff {
+  dup 16#40 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+UCDingbatsEncoding [ 16#c0 1 16#ff {} for ] vg&undef
+[ 16#00  16#05 16#0a 16#0b  16#28 16#4c 16#4e  16#53 16#54 16#55  16#57 16#5f
+  16#60  16#68 16#69 16#6a  16#6b 16#6c 16#6d  16#6e 16#6f 16#70  16#71 16#72
+  16#73  16#74 16#75 16#95  16#96 16#97 16#b0  16#bf
+] vg&undef pop
+
+% Define the base fonts which don't change.
+/Undefined-UC NullEncoding       /Helvetica    vg&newbasefont pop
+/MathOps-UC   UCMathOpsEncoding  /Symbol       vg&newbasefont pop
+/Arrows-UC    UCArrowsEncoding   /Symbol       vg&newbasefont pop
+/Dingbats-UC  UCDingbatsEncoding /ZapfDingbats vg&newbasefont pop
+
+% Make the SansSerif composite fonts.
+/SansSerif /Helvetica 16#00 vg&newcompositefont
+/SansSerif-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/SansSerif-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/SansSerif-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Serif composite fonts.
+/Serif /Times-Roman 16#00 vg&newcompositefont
+/Serif-Bold /Times-Bold 16#01 vg&newcompositefont
+/Serif-Italic /Times-Italic 16#02 vg&newcompositefont
+/Serif-BoldItalic /Times-BoldItalic 16#03 vg&newcompositefont
+
+% Make the Monospaced composite fonts.
+/Monospaced /Courier 16#00 vg&newcompositefont
+/Monospaced-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Monospaced-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Monospaced-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Dialog composite fonts.
+/Dialog /Helvetica 16#00 vg&newcompositefont
+/Dialog-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/Dialog-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/Dialog-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the DialogInput composite fonts.
+/DialogInput /Courier 16#00 vg&newcompositefont
+/DialogInput-Bold /Courier-Bold 16#01 vg&newcompositefont
+/DialogInput-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/DialogInput-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Typewriter composite fonts (JDK 1.1 only).
+/Typewriter /Courier 16#00 vg&newcompositefont
+/Typewriter-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Typewriter-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Typewriter-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+
+/cfontH {
+ dup /fontsize exch def /SansSerif exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHB {
+  dup /fontsize exch def /SansSerif-Bold exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHI {
+ dup /fontsize exch def /SansSerif-Italic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHBI {
+ dup /fontsize exch def /SansSerif-BoldItalic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+
+/cfontT {
+ dup /fontsize exch def /Serif exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTB {
+ dup /fontsize exch def /Serif-Bold exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTI {
+ dup /fontsize exch def /Serif-Italic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTBI {
+ dup /fontsize exch def /Serif-BoldItalic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+
+/cfontC {
+ dup /fontsize exch def /Typewriter exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCB {
+ dup /fontsize exch def /Typewriter-Bold exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCI {
+ dup /fontsize exch def /Typewriter-Italic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCBI {
+ dup /fontsize exch def /Typewriter-BoldItalic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+
+% Darken or lighten the current color.
+/darken {0.7 exch exp 3 copy
+         q 4 -1 roll vg&C
+         currentrgbcolor 3 {4 -2 roll mul} repeat
+         3 array astore Q} def
+
+/displayColorMap
+<< /Cr   [1.00 0.00 0.00]       /Cg     [0.00 1.00 0.00]
+   /Cb   [0.00 0.00 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.00 0.00]       /CGg    [0.00 1.00 0.00]
+   /CGb  [0.00 0.00 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.00 0.00]       /CIg    [0.00 1.00 0.00]
+   /CIb  [0.00 0.00 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/printColorMap
+<< /Cr   [1.00 0.33 0.33]       /Cg     [0.33 1.00 0.33]
+   /Cb   [0.33 0.33 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.33 0.33]       /CGg    [0.33 1.00 0.33]
+   /CGb  [0.33 0.33 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.33 0.33]       /CIg    [0.33 1.00 0.33]
+   /CIb  [0.33 0.33 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/grayColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [0.75]                 /CGg    [1   ]
+   /CGb  [0.50]                 /CGc    [0.75]
+   /CGm  [0.50]                 /CGy    [1   ]
+   /CGo  [0.75]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [0.25]
+   /CGgr [0.50]                 /CGgrd  [0.75]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+/bwColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [1   ]                 /CGg    [1   ]
+   /CGb  [1   ]                 /CGc    [1   ]
+   /CGm  [1   ]                 /CGy    [1   ]
+   /CGo  [1   ]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [1   ]
+   /CGgr [1   ]                 /CGgrd  [1   ]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+%
+% The following routines handle the alignment of and printing of
+% tagged strings.
+%
+
+% Predefine the bounding box values.
+/bbllx 0 def /bblly 0 def /bburx 0 def /bbury 0 def
+
+% This routine pops the first unicode character off of a string and returns
+% the remainder of the string, the character code of first character,
+% and a "true" if the string was non-zero length.
+% <string>      popfirst <remaining string> <true>
+% <null string> popfirst <false>
+/popfirst {
+  dup length 1 gt
+    {dup 0 get /vg&fbyte exch def
+     dup 1 get /vg&cbyte exch def
+     dup length 2 sub 2 exch getinterval true}
+    {pop false} ifelse
+} def
+
+% This routine shows a single unicode character given the font and
+% character codes.
+% <font code> <char code> unicharshow --
+/unicharshow {
+  2 string
+  dup 0 5 -1 roll put
+  dup 1 4 -1 roll put
+  internalshow
+} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and showing the string for recshow.
+% <string> internalshow --
+/internalshow {show} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and stroking various ornaments.
+% <string> internalstroke --
+/internalstroke {S} def
+
+% Sets up internalshow to use the null device to determine string size.
+% -- nullinternalshow --
+/nullinternalshow {/internalshow {false charpath flattenpath
+                                  pathbbox updatebbox} def} def
+
+% Sets up internalstroke to use the null device to determine string size.
+% -- nullinternalstroke --
+/nullinternalstroke {
+ /internalstroke {flattenpath pathbbox updatebbox} def} def
+
+% This routine tests to see if the character code matches the first
+% character of a string.
+% <char code> <string> testchar <char code> <true or false>
+/testchar {exch dup 3 -1 roll 0 get eq} def
+
+% Raise the text baseline for superscripts.
+% -- raise --
+/raise {
+  0 fontsize 2 div rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-raise the text baseline for superscripts.
+% -- unraise --
+/unraise {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 2 div neg rmoveto
+} def
+
+% Lower the text baseline for subscripts.
+% -- lower --
+/lower {
+  0 fontsize 3 div neg rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-lower the text baseline for subscripts.
+% -- unlower --
+/unlower {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 3 div rmoveto
+} def
+
+% Compare the top two elements on the stack and leave only the
+% larger one.
+/maxval {2 copy gt {pop} {exch pop} ifelse} def
+
+% Tokenize a string.  Do not use the usual PostScript token because
+% parentheses will not be interpreted correctly because of rescanning
+% of the string.
+/vg&token {/vg&string exch def /vg&index -1 def /vg&level 0 def
+0 2 vg&string length 2 sub {
+  dup dup 1 add exch vg&string exch get 8 bitshift vg&string 3 -1 roll get or
+  dup 16#f0fe eq {pop 1}{16#f0ff eq {-1}{0} ifelse} ifelse
+  /vg&level exch vg&level add def
+  vg&level 0 eq {/vg&index exch def exit} if pop
+} for
+vg&index 0 ge {
+  vg&string vg&index 2 add dup vg&string length exch sub getinterval
+  vg&index 2 gt {vg&string 2 vg&index 2 sub getinterval}{()} ifelse
+  true}
+{false} ifelse
+} bind def
+
+% Recursively show an unicode string.
+% <string> recshow --
+/recshow {
+  popfirst
+  {
+    % Test to see if this is a string attribute.
+    vg&fbyte 16#f0 and 16#e0 eq
+    {
+      q
+
+      % Font style.
+      currentfont dup /FontStyleBits known {/FontStyleBits get}{pop 0} ifelse
+      vg&cbyte or vg&fontstyles exch get fontsize exch exec
+
+      vg&token pop recshow currentpoint Q m recshow
+    }
+    {
+      vg&fbyte 16#F8 and 16#F0 eq {
+
+        % Superscript and/or subscript.
+        vg&cbyte 16#00 eq {
+          vg&token pop exch vg&token pop 3 -1 roll
+          q raise recshow unraise currentpoint pop Q exch
+          q lower recshow unlower currentpoint pop Q
+          maxval currentpoint exch pop m recshow } if
+
+        % Strikeout.
+        vg&cbyte 16#01 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll fontsize 3 div add moveto
+          fontsize 3 div add lineto internalstroke Q
+          recshow} if
+
+        % Underline.
+        vg&cbyte 16#02 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dashed underline.
+        vg&cbyte 16#03 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J [ vg&uthick 5 mul vg&uthick 2 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dotted underline.
+        vg&cbyte 16#04 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 1 J [ 0 vg&uthick 3 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Thick underline.
+        vg&cbyte 16#05 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Gray thick underline.
+        vg&cbyte 16#06 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w 0.5 setgray
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Overbar.
+        vg&cbyte 16#07 eq {
+          vg&token pop dup stringsize relative 4 1 roll pop pop exch
+          3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          vg&uoffset neg add dup currentpoint pop exch m l internalstroke Q
+          recshow} if
+      }
+      {
+        vg&fbyte vg&cbyte unicharshow recshow
+      } ifelse
+    } ifelse
+  } if
+} def
+
+% Get the underline position and thickness from the current font.
+/vg&underline {
+
+currentfont dup /FontType get 0 eq {/FDepVector get 0 get} if
+dup dup /FontInfo known {
+  /FontInfo get dup
+  dup /UnderlinePosition known {
+    /UnderlinePosition get /vg&uoffset exch def
+  }
+  {
+    pop /vg&uoffset 0 def
+  } ifelse
+  dup /UnderlineThickness known {
+    /UnderlineThickness get /vg&uthick exch def
+  }
+  {
+    pop /vg&uthick 0 def
+  } ifelse
+}
+{
+  pop /vg&uoffset 0 def /vg&uthick 0 def
+} ifelse
+/FontMatrix get
+currentfont dup /FontType get 0 eq
+{/FontMatrix get matrix concatmatrix}{pop} ifelse
+dup 0 vg&uoffset 3 -1 roll transform /vg&uoffset exch def pop
+0 vg&uthick 3 -1 roll transform /vg&uthick exch def pop
+} def
+
+% Make a frame with the coordinates on the stack.
+% <llx> <lly> <urx> <ury> frame --
+/frame {4 copy m 3 1 roll exch l 4 -2 roll l l h} def
+
+% Resets the accumulated bounding box to a degenerate box at the
+% current point.
+% -- resetbbox --
+/resetbbox {
+  currentpoint 2 copy
+  /bbury exch def
+  /bburx exch def
+  /bblly exch def
+  /bbllx exch def
+} def
+
+% Update the accumulated bounding box.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/updatebbox {
+  dup bbury gt {/bbury exch def} {pop} ifelse
+  dup bburx gt {/bburx exch def} {pop} ifelse
+  dup bblly lt {/bblly exch def} {pop} ifelse
+  dup bbllx lt {/bbllx exch def} {pop} ifelse
+} def
+
+% Set the bounding box to the values on the stack.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/restorebbox {
+  /bbury exch def /bburx exch def /bblly exch def /bbllx exch def
+} def
+
+% Push the accumulated bounding box onto the stack.
+% -- pushbbox <llx> <lly> <urx> <ury>
+/pushbbox {bbllx bblly bburx bbury} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> inflate <llx> <lly> <urx> <ury>
+/inflate {
+  2 {fontsize 0.2 mul add 4 1 roll} repeat
+  2 {fontsize 0.2 mul sub 4 1 roll} repeat
+} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> relative <llx> <lly> <urx> <ury>
+/relative {
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+} def
+
+% Returns the size of a string appropriate for recshow.
+% <string> stringsize <llx> <lly> <urx> <ury>
+/stringsize {
+  pushbbox /internalshow load /internalstroke load 7 -1 roll
+  q
+  nulldevice 0 0 m
+  nullinternalshow nullinternalstroke
+  resetbbox
+  recshow
+  /internalstroke exch def /internalshow exch def
+  pushbbox 8 -4 roll restorebbox
+  Q
+} def
+
+% Calculate values for string positioning.
+/calcval {4 copy
+  3 -1 roll sub /widy exch def sub neg /widx exch def
+  pop pop /dy exch def /dx exch def} def
+
+% Utilities to position a string.
+% First letter (U=upper, C=center, B=baseline, L=lower)
+% Second letter (L=left, C=center, R=right)
+/align [
+{calcval dx neg widy dy add neg rmoveto} % UL
+{calcval dx neg widy 2 div dy add neg rmoveto} % CL
+{calcval dx neg 0 rmoveto} % BL
+{calcval dx neg dy neg rmoveto} % LL
+{calcval widx dx add neg widy dy add neg rmoveto} % UR
+{calcval widx dx add neg widy 2 div dy add neg rmoveto} % CR
+{calcval widx dx add neg 0 rmoveto} % BR
+{calcval widx dx add neg dy neg rmoveto} % LR
+{calcval widx 2 div dx add neg widy dy add neg rmoveto} % UC
+{calcval widx 2 div dx add neg widy 2 div dy add neg rmoveto} % CC
+{calcval widx 2 div dx add neg 0 rmoveto} % BC
+{calcval widx 2 div dx add neg dy neg rmoveto} % LC
+] def
+
+/vg&str {m q 1 -1 scale dup stringsize 4 copy align 11 -1 roll get exec
+         q inflate relative frame exch exec Q recshow Q} def
+
+end /procDict exch def
+%%EndProlog
+
+%%BeginSetup
+save
+procDict begin
+printColorMap begin
+595 791 setpagesize
+20 20 20 20 setmargins
+0 0 setorigin
+468 365 setsize
+fittopage
+portrait
+imagescale
+cliptobounds
+setbasematrix
+/Helvetica 10 sf
+defaultGraphicsState
+%%EndSetup
+
+0 0 0 RG
+[ 1.00000 0 0 1.00000 0 0 ] defaultmatrix matrix concatmatrix setmatrix
+cliprestore
+1.00000 1.00000 1.00000 RG
+newpath
+0 0 m
+468.000 0 l
+468.000 365.000 l
+0 365.000 l
+0 0 l
+h
+f
+0 0 0 RG
+q
+[ 468.000 0 0 365.000 0 0 ] concat
+<<
+/ImageType 1
+/Width 468  /Height 365
+/BitsPerComponent 8
+/Decode [0 1 0 1 0 1]
+/ImageMatrix [468 0 0 365 0 0]
+/DataSource currentfile /ASCII85Decode filter /FlateDecode filter 
+>> image
+Gb"/lIu#*;rVubU8<HdW7JmiK7;,B`3"Fs\jUaH5^j*;B&44*&,oBLqI#-c03<Hl*lD;us$*D?I/0]j?
+3K,g`;aRT.3K?S)B+dP7BMqOH+VG:"JQ.f94`e9M05eibm`t1EmehAoG$Y]2bjE^"53CsBT)7Bth=ldd
+NoN*Zj#E(Z30*#YNoN*Zj#E(Z30*#YNoN*Zj#E(Z30*#YNoN*Zj#E(Z30*#YNoN*Zj#E(Z30*#YNoN*Z
+j#E(Z30*#YNoN*Zj#E(Z30*#YNoN*Zj5e,Be#*]s3ja,"hL5:p*C#"cC)t?7S6DT%]79k[_hScg_VKFn
+4ZPN*[?9K/:;(o<Xge0'qPpuC*65#p1G^g3,9p2m30*%KJhq&b9MA,Bp!cp02JkKtl;Z:pNoN+,?u^2V
+nDV7i%iu]3*hJspNa6:Wj#BfCPalGIF9&CB>$>*E^5H)VU9cP]M9`ufG3>IXlIDq=V%5cbT_U3Lon^o1
+e0[3a;qmjiL(bq0":Nha?$l:uB8;7t=&r@j=!Lc7r;#qa.s(kjS*2CsD5&g@4\B+(FL8ftIqWMoYHMk\
+D!]B61U3tmX%2MS@;6IHKrIdg-DlP=Lt*_nWA(`:cGJ'X3YTu[%`IWE]2Y0O6t]qC':k!E@0^97Lg;K(
+D5+?j[>E2IoWSG&HGhENVDch)R+ar@@X?[X=?U,[$<*GX/50oT1GM&Z5cc$3980?>F;C`3d@$@CFs'hH
+fVQI7-9;N5S*3O>%m*1[=7A/`*N*?r4OMmBfipDdHp)g,1i]$P1#CcY]lh6!f;T(rgY9'DDKtk928ONa
+HhQ#"cebDlieoJ(qWb-0p@/)_amsDaMXgE6m&_4mZZlHKrH!%$7I5;3B'-GG4tC*gc$]8thu1`*r_hGk
+rd0n]&(djaC[VHiHg?FJll@)eeW;=kce7nD4o.F9J,X_Z4a?\_K!k;i^pCLf:pP<>mbR?Hs8LJC5J;@6
+k*KG(3F(`+^\Q.S=ljkBqd&j6/R,Z"hnK&mJ,O/m\M!41%mU!]9/!u#j,Gu]nA#-e4nb921Nnu2Vb]Mm
+iVDZ/f,Obfk<JFfZ")7[9tHsm@IrjPX?M;054QQ)Mi3L>b;7I,o?g&M732$W\)2Z3X097+S=J*BrT[J!
+$9*J*aX>!L$a7;@l6$#p#Pi]>`]@A9FD9'm4hBB8LCQbZ2iVd)Yh%Y?GkT\t9(m`">Mg>=*'CgT/[sN0
+WM2=dj?E@sK?'#pf0@.Udi1/u1p$]Oa$8jXJ,A!XK$F2iqd4jOofrE>:R\?\k:_;S$XNc(dnaI4\TmZ(
+T<>MLrH\oN=UdaC9O1B%rS\9:fIVFDm+IkH^0(nf*ITJe+GhAA53O#2gnB)A7(qi^S+K!RH0#dss,VX$
+,MdFF#CTMFc[Yp-/8OAQ.2pIf=GQeA]C1kP*ml0Fp?JE+g"TQ;<`j/+#!@7u7T/r/j+%';P(-?<L@!Ga
+$^Po\WT->d9PRIRn\l<l:%ZGDIe0%;I-G$@LU+bYR]GC^d54MM,X=l4GM[W.Pq,pf5?Cld^0!f+ZhZPI
+FJ&C4d@_2uhXD(u/@ocW^0pcU(LP\>Bs?ANH^c$4iRL0j;3LhF^H[%hTs\jA0HLq"]laE6mLA&tHhlci
+24'=C3HFT%pGQi^2r8Mk%H"dXVO")a_rgO_1eZOjd6XPaU1<->c_(1&BA`agpG[!FW%7*,<emd$c75^e
+W<6!<Jd,9eU=gJHkb'jSlfs*$)(`8AhI[#cf=[(MK\;ha\3=#1mfkn$lNT:pNupT8l`IWSCngIjK-1#a
+GulT'2eeHd5Q"?1pE0G18,0"E=;["n&j@be1ii9Ns8)ESp[?umSS)m9$*cuBIC(/E@i^0%(?)%S&3AGn
+]l6]Mf%pj\p=9[jp1hP%Em$&<^]&Ouj/#D8A2X*<0VasNrqXli8lPEn$k.eBs'n"`m'G%1`o*k;J8VMe
+((=dIp2>?=)pM6W,NLQE-7:0n.g[5-n*RUA*gh?Sq<.U5d#brG%f2"=rq<gR2[u+>Q?;4rX#.]$_HM:F
+i7V<n\Cmnj)E8X3_o'CdhL"]3GMEecX5c?;0`CUZ#9VGlHKh8mUa^XtHgN\=%B_Vo+!bOV6m"aNT\mFX
+OGuL#a\R$NW)iaErkA9tCQ>^Rg"Dj4]'4bN*Z,b4d5B7A4Y%Obmu\hbJisMP%dLqh?ZV$Gd,u"kem!_n
+#d67q's8;&g:IC3hR[,UHQ=J(N469/Dr'pLF_ZNup@djT)kO`<9ebG\T"T9aZe)/_`nT7S[r-Ha3]4`u
+H[GJ;%F8@Y-5^Z>cec7lfio1sbj4R.q.@HfH[GJ;%EmGZ)tWeNdD\565+,psXL36ST"T9aEq]4Hr4P*O
+GkPac>'i3dfipB`fh7aJ[ok.oX([SQC_AgfDfh2=IE#%Cla-?j=DR@04F?Au-$p6qpVn[/D&!7ho-U`K
+R70&+g1Tb?^-7HnJ@5)OrpS5V,lOcI/JSI_$6gpGcYi`c9)_98E:`hD.OApH35f^_2LAs.fjZ.4T>amu
+"U.&6`El,=JB#:rkO4C19%kb6Lu"kDp;ZMVBd-oV`AbS3HhTepMQr?(i+B1/q0STr>&4p5`#_A6/AC'i
+8c+I;aOb(p%5H;f]ofl,7S4#AS%T$hmql*?YuM@2Yt#BfMf6*sdQV.go(?.56S,TgMr=9pXW-'^'moQH
+`[W9O'oots2i4*E2nDT/5%>u2oiZYE.W=e,_<]cY2_8UFj5`b=mG0[F4aZLLB<P5I.W"Q1_<]ciT6'2@
+9he@Lh7NEsJHI8qSkN=)IX_98KF8SK`3/7UldUS[g,i$cHM15R)B.&^eMo^:n6fU1hj\Pu)8"V@`5Lm'
+kkK:`;VJJ/W<q[qGKSksG77`c`413jEk)%a$SQ2/`i_5)9&%&@Q+cfBEdF=?K;.O]=6c-c;.aEP7RfjV
+n'^.EiUP^YgqpopM`hb/mKGJ/;]j-jME1mDe2VfAQ^>b4`cUD`H`q&Mi8EP%D;,7!#'=[O1fHmTA?S23
+*'/0ip9&?EgFahr9hA[?j;)AFV1n=6n%\nukFXC[/r&9Dl],3[,lLKdf>!iK8:PauS[nj0c/.9gGOO1h
+j4^nVZ1fk&/HlM#dCXShdZfbtD9[2[S?6Akrr)^9I.4u9>R*Lnq9S`"^]49$i@TACq@jT:M:5-XQWJ0j
+7clR.@l`"A-J<k=aX:<$Cq9#Kq_i<FoWNcC/'C<@EZjUjP.po]P8?iWiN<Y6MUot50K6<9In$_Vc^q7C
+[t\t:Zt<`T6*#,#lIG%//<>.#\Gj21I4tA9KWJMD^A6o\Dn+b\kdMh7Vl)cWnAD%bKI<Xga?$9C`@C*q
+1/aWNPU'HRlg").5*9EKBd]5L.4BPL8[T`%Fb]KOLEqH@naVSX2b)\HCX&hWVmK&W!,fNoGkUR[[r6M9
+3;E*a(LMRdl)/I4n]!80S*0%$KK3k@H01NU55H[0+jGDCZ$UBe&4mhdcH\WOnADj.'2L`aYNT>CrUj6!
+I5P:0q!mC\FMq$DI7i$%^2EMo@ul<W8jiu_,C]4*-Zu!DhI7!Iei#R_EJp9m2/,%]L'%`(79=a2mC0k,
+lDr%K8UZhB_U%X^.Sd!nCYM1.,5VOMcX-KB9MB9TYX+$mbL[&<T:)+p6"%4VM%_7g"`;b[4*PF,`pPE-
+HaE?B?>hZ6p)Z57UqaZ/R$1tWqXpa^T+81dG+N#3R):gCNbUYJD:5"C@NQe;_m="%l<+#KdA)#_VQTc2
+(.G.hd:\d'Hdbj0qsV:,GGY2gV]4Il-_Ge7+J:[MIf&ND><S)&DS%KZhq1;S[>dppgnH-t9q%-GiBVLK
+479UGpT1'7dnMdcY$QD8Q!hn0^q%(FMNd>_g:"MakkY@![,F/pmBbs@kSY)iY(P\=]68n/kt/"$%1NcK
+?+X-m@7bC1(a&Kep?EK/s8MsXN#<TTPh!*?ZSuUHh5!&I)d^FjR*W56FM9=J,'H>%:t9HNSl[]nGl#eM
+Pja"_42J'd_dNN'qaW])f)N&cQ-iubmBtPtAW=*:/rSjZ9<rE%coAH\D,"K#Xs&/03K&"GWiol`A^*[b
+bt;%n'dk#!>MC?R,-PF0GkT]!qq8$R1j,IiY;(YOmKp0XC!th53GbJREpNO;>>43!Xq:IA8K6q%lE!?1
+*M`kBYB:-FkbF1C-Mj`)fM?1Zqh]c6qk]Wc$>/jc&tKq3"'dW0l-PT0)^Z@nRLm!28b:=eA8h5k\nuP:
+*pfnbR>P4u^U7qH6'5[HMJ$l+Yb/V73k!H+@IOb%OM+5Lm`*O\/!4n`m<l?6HZ&]l/N2*TdMKddf<<d,
+]`,IO\/:0dDnYhpn;Y<3;"o%cD7>5RCA7p!`$h'giV]"QQ#<(5BM#Y[<,=94E*JOgU['a`4.W@\7K$HF
+jr5!pVJ^osDr!ZhY7Br3B4li9KBu=$V`/c/>DWJLg\GZLp)K7f&@!0\]Qc/iNlfDb0F`,sq!c03%h&l"
+.u/kj^-9rWpYL8&HECNF,^e8dU7(_r,EDuN3q.LeaX<8^/]fo>MCg.XDJ^#5F<+q2(GcdR*Dp%q*.oHm
+e.(p6XW*)_N=rtW(-><q,g9[9%>;1]fd?)H,k`Bj2q4aa?ma`mOV*#gZY.SgCJIZ$CQ_*#&e[(OS@RaI
+>LZLL]4]H]k/qA7C!b[]kFFZf*#oq,5Kb'oBX+uTf,Trgdb5u?kW6lCmUdqDWdeg=*8<RLi"aSpqE^b"
+iJTA'#_)(_MN3p)IlU.\C&?<AfKH-XLuo0>cfQ=rCsC,F8p"%c5`f]+Dj\,`a(dfF[KT7VYcWb(F`\(1
+XadmqUEaM^Rlr0?^WmD0ZaXiI4D$u"7]fE(1:DD#_(2+jou",fW<iaAXNMo7`O!%&1h<fMoJ#*l,=SMJ
+J7ifV+BFQUV8C_/3_QX0jTKM9cD<g#%m(?'8*j,^C(m-a-g_PL1Z[t/1;rgh"0m0j/et6Ad96%e/ie/t
+E@r>BHJ!dN4^s`b;k)u%RC13KhX&OQ5YM\M&?A=f;IO;RSL'bKq5Kk>\LNF"@0^97Lg;K(D5+@YX'Nhd
+2ktH%&C\N,`9IrH<1)B-BB`%#g>MAD\T3Mj@0^97Lg;K(D5+@YY$H>BG2[6<@X?[X=?U,[$<*GX/0/J0
+#i8=INBg/J3tSG_lr%8,':ks5D%!>tWO!V$l!Xg+onZm'9PpN1Ush4Wh!N29)T;9P"0m0j/et6Ad90@\
+>79:Ec3>GhLE23$,Bg%?[>E2W:>91G[WT"b0g4kgX<+W>KrIdgQBp5/;n&m8=bu<N#@d@^>q/NbU9c+\
+gJ$GScB]WNLE23$,Bg%?[>E0AVepUegVVW-`:U89Z$O>@'rEn:=dl_b#B-q)!b-K.JQP'EQO6Z\kU^)m
+[\(.Uc4l*!@0^97Lg;K(D5+@)ZmigAbYf,'_[aWM&\D#0g-fSaXpk_E@@!@L*d/Z,O4^;Ge0[3aj8s6%
+`)78t_[aWM&\D#0g-fR_n-ZMO`:U89Z$O>@'rEn7R@(Pd\5E\j4mYG8*jJ@lWQfJG#-ZBG*C*:/3tSG_
+lr%8,;k0Q5)59r"*JKk%Fs'hHfVQI77QC--n-Yu@%1q"+%`IWE]2Y0Op76OTG_JuZAr,\[#@d@^>q/Nb
+j3G?#\cKfD*=FSblp.WnYtKeMD:uIdJlccT3XK8AfR[-f@[@F#gST&<>\Ak%Zdc*#VM?1JeK]7:0XV?N
+pLNcNa\oU%Ql[PmmbG@PWN!RXpDu;5i8i"D8ZNH(8*j,^C0PcIaj^d(<pDLQe"[&#L5%O0%j*u_nDM-s
+^:lP`Ho#q'@eGO_.SO\Xc93/[@]\'.+f7a9>eYSG>^kXc(Ignb@ojmUO4^;Ge@+DmgVGD+8t@#4HBcXt
+bfn/L8F0X#l4LX-R+`=GHh@GY!u=Mb.E(j,PNCofZ*?#(qSqAbX<+W>KrJ@gF*GH)\TSc#SVcT.-G+Kj
+hQ^S2[;4B'mp1"*o,QoTk,MJG#,6:Kc<Wi@"mt_c3JY.BEghR3ZY.V8X]qu6\WX<$Z$PSa,6VFi=6Q19
+,(l5n*/NiV%ccU0)`MYn^?O2WZ$O>@'rH.Sc5EhRHE#)=Ql[P-0eoqA_hP"aV<.$]Y"#K6YtKeM?+tA4
+Dl\/_bCQ$%-*ZOto_8)-X]D`0G)0ER9^S"6oD1.nQb"/ml!Xg+onZm'9^OU+F8Q`?Qb"/ml!Xg+onZm'
+9^U8uEt$n\[<%#b9M>sY&?A=f;IO=,j.(&WQDU3+6t]tTfR[-f@[@F#]4gA4hH;@9]*O5<`:U89Z$O>@
+'rH/Jc:+OH$/,PKF=*l?*Ji5jG,[1'MfUL'GRN%S%\ba64mYG8*jJ@lWEkU,Ttss'G+fJ<M<SFR@eGO_
+.ST6bSI<$E>I8P[&=n[B@0^97Lg;K(m<kJJ$/XIFbCSkN9Fj2rX%2MS@;=uh>YaSHY$Dr6B4?2>JQP'E
+QO6YQ(['5$]D63.%+1K1*d/Z,O4^;GeB[:57I"IqhX&s]5]e?MLE23$,Bg%?[Bhho'tbElX+KP/9Fj2r
+X%2MS@;:#R>ZL'$e?0@W1GM&Z5cc$3980A$STD3TgU244&=n[B@0^97Lg;K(m4OnZ&)Q`].u3=^9Fj2r
+X%2MS@;:#ICa!r5co(sQR@#%=+BFQUV8C_Wmqa7l44UbAd@$@CFs'hHfVQI7:?cREGggGtK'5m%%m(?'
+8*j,^C8Z'[(;)*(X[.%UVM?1JeK]7:0X]Xr)[tR[g'/]]'@Xi/`9IrH<1)AkSF*tqerdCDLsEs2YQM.V
+`%De%G*92be8;=))58oA4mYG8*jJ@lW?(;@4F!'sNC.e7VM?1JeK]7:0X[C@m0@R2[XEtW`:U89Z$O>@
+'rH0(g%#='(>9IYcG]@Z"0m0j/et7,kR7f)JX78X0g4kgX<+W>KrH(PK2OY.c%>.Q9Fj2rX%2MS@;;i!
+/pIP(lDbR[L6s$*+BFQUV8C_/#-T^R9lq_ZLE23$,Bg'5Zrn2i)dnplJET[#%m(?'8*j,>Bld33!*&4p
+U,+Melp.WnYtKeG9b1RhPWB0!R@#%=+BFQUV#o'4J`%86W>cs@'@Xi/`9IrH<!_3k&\LFYFYcEu@X?[X
+=?U,[MJ[5&4)<)C/p.dpB4?2>JQP'EQ\o5=?:s#RZ__O?d@$@CFs'hHfVN%W]>mf.^h0QM6ZaZPLE23$
+,Bg&ReF(H:'pGJ3$dkB0*a)TJ=dbnS5B>i+)fNC:@PqHSE.eT80#Xn^X<+W>`L_7V#-ZZ0FW-(]`:V-f
+`5KU*FmHJPg!\d8hg2]XdF%LMS32'PFu<b%Lg;Kr[!OcT"72754[`plH=UH0H!1//4$21TH^2$d,?BlX
+V.)p+UYn#hgaPX.U,+MeZBHV^p[6j!2`J4MYg?i:@eGO_.Q4Xq*V!<PmK0+@d@$@Cfh%C@K7eg2[VZs#
+(`486:&7(IX<+W>`IN+JQPq>tmLGsLd@$@CfkHqh91qpo_Xd9gY$JZZ`l;Ih>B?A,*-<lA[6cfOW86\c
+GV(mfJZ-h6%W`lpBJWH=m#A<TYb5"-HM)%E?,Z$!#EB@k3peKeXEgd<KBQ!&O6gtQ]r+VrdOGE=dPX:k
+*jJA7,41=2C%,#e#18j+*a)TJ=j[q3pYC$NH^@e?DP*>bR@]u[=$(E]7'LXpd\WKrGAc9M3Hf>Zl4LX-
+WmK&j=Y_XQBb6hll&g[0a,[:t3^N\(O,rb`[4>L!G^*?.H"^l)mFnu&[r9$+nRCkALt*_nWKaQVbD1>U
+e>5HQ-DlP=Lt*_nWKa?P9Bqi0S1d9IU,+Melp.WnYtLoEm2Ubf2!<X;C(m.pl!Xg+onZm'V.f$2]]D*h
+!E#?M9M>sY&?A=f;CPp6pY[X>\KH^^6t]tTfR[-f@[B^'g-l-_dE]]se0[3ie&)[6l4LX-$I^UUFUN=E
+)PT.;R@#%=+BFQUV,E7qTtsrpEsWDcM9a'3YQM.V`%I;V[#5FN,+Qi-W(h@\VM?1JeK]7:jK2]SnE0.D
+)FSG:1GM&Z5cc$39-m[,Ee65Wk;"2q':k!E@0^97Lg;JjBpTLD+a#D[aUk#"l!Xg+onZm'H"`Na]Mdcf
+QOhK3Ql^Dn<fbn0P$,Epi0Cm>\e9hE`:U89Z$O>@Q#,0>"L$=\e5\eV-DlP=Lt*_nWH>1H<U'e<WmoQc
+F=*l?*Ji5jG,]S[?#B('SP!0J6t]tTfR[-f@[B^Mg6DoHe>C_2+?C1b_[aWM&\D"'e@#q$;NF]pJ`od$
+%m(?'8*j.<7,(&n#5!;Bm6Gb?VM?1JeK]7:Ush4Wg^WN,;Hne;9M>sY&?A=f;G!R!/U4+995P671GM&Z
+5cc$39;S2f_;LS"/[\</cG]@Z"0m0j/sVaV2M5(WZ.*A/3YTu[%`IWE]2Xs$D5M29O-SES6t]tTfR[-f
+@[B]W[b9VW8C*OS5"'$mHJ!dN4^saMPICGJQ!Pms!hqJ*4mYG8*jJB"le70QQ(BB]"eme-4mYG8*jJ?a
+U.kr#iKkGcd@$@CFs'hHfVNUoS!(>`kYe`03YTu[%`IWE]2VVEh%48!M:t@1@X?[X=?U,[&qa8QV&#pd
+d@$@CFs'frf;6F8%D\5iJ>c1a-DlP=Lt-!X.5Z/L=JZKNC(m.pl!Xg+odF+g*U\YY9&0JES*3O>%m(?'
+LZm/-#[W(H\f%5#d@$@CFs'i3I[Batn-Yl=Yn4="cG]@Z"0m0l]<jLp2o'[;P9=TRSVcT>#@d?WGA/]6
+YLkIM$]*M)B4?2>JQP()?.q*d)5>b7F^'[U6t]tTPebGab5D28OX!BQGiOc!WtDCFYY0<uGf=3mdm2D0
+3YTu;"=>HBeu`/cA]pD=rr*\6&Z]QH92c%u2=343SV=%;F=*kT#qR__l[NP[B0CSL-2hf7P]fZTcGJ'X
+3YTu;1d$*mV5*>bG-o^cF;C`3d@$@CV;^*3&7&Q![@l>)6t]qC':k!E;&X/S2rHfR\[f7c"k$c9NDd<1
+(D*.`1UUB2@;_;FAN5(mRlao*UnLuZmN=Ou;k)uE9TRWkm*1kJ+!`)&>XW45C(m.pktqL4.kAfdbO<1B
+Y%I.n.^?#dX&i;fB)Dcbn`1lT$WEPY9MCK[3-OZ@R]dAD^VoE&hkdl2Fb4jY&Y4WT9lq_ZLE23$/%J=E
+qT^#Lj<?Vm;k)uE9Fj2rX&io"jqYPG4Lp9n_UKnn'@Xi/`9NW=V0SnT!:f+o3X\lUkY+Y\3tSGo:7()^
+]YZeALsEle-9;gh_[aWM(##KE?=[`"G]FCeKrIdg-DlP=Lt+#Y98a0a@@g^lB45NgSVcT>#@d?5lI+Zi
+2h6-n&Y4WT9lq_ZLE23$bIpOV*U\Xn:G/BJ0XZb_`:U89Z$Q4hBfX![b`dtK/50oT1GM&Z5ce:P?!:G$
+$M3=&3X\lUkY+Y\3tSHZ=-o5=\cKa5Ms)]cD5&g@4mYG8?7oMeEpsG-j<?Vm;k)uE9Fj2rX-^(abIl+3
+Km7VMSV=%;F=*l?*Ji7hd\TqIY:ra)U9cP]M9a'3YQM.V?$C":_(3`nMs)]cD5&g@4mYG8??][Y@Hn%.
+:G/BJ0XZb_`:U89Z$K\tC$!/]b`dtK/50oT1GM&Z5ce9^?!?W<L+(!(Ms)]cD5&g@4mYG8?MZ:^'>21E
+\VSPJe0[3ie&)[6lD<iF;o(!.PDeWU9PpL[0g4kgXBq>J23k`R`06,C/50oT1GM&Z5ce;H/i=KY_E>Ab
+cGJ'X3YTu[%`IY?kYc3J)57[</u#[+[>E2IoWSG&H:_CW3I$7'EY4jrWD.I]VM?1JeVifmj2!7iPDeWU
+9PpL[0g4kgXBot7>)qALilOW2(8a";R@#%=+BC/LV8gQe;2?S9d92jj6t]tTfR[/<TM+ZZA8$L<EY4jr
+WD.I]VM?1JeOu=D<GOKZ4Lp9n_UKnn'@Xi/`9M''idt7!-Pt05R+ar@@X?[X=?U-_$M3=&3X\lUkY+Y\
+40Ya*]"m&#n`1lT$WEPYbXrC]J?"A7?=BF16t]qC':hGR@1Z'(d&@sL4Lp9n_UKnn;prQ1M!FXun-\dJ
+,!$*1S*5f%&$sol?>ftM0Ma<qZS8eDcM#`)17"t2^VJS(n`1lT$WEPYCcOZFA$^Kkn#W@:G]FCeKrIdg
+[[A0NCf[a[;E',NEY4jrWD.KCR3%'&mbG>T#7c]RO2(;34%\b^cd*\nE8eZff[[''0?nI&fVQGI\VSPJ
+e0[4\995hCpu@D?"pUs%VIjFPm^_MPl07HbeKuUi7RothYB09qak5.F<A2UQQe8.Oe0[3a;k)ue/No!R
+n])`$m^_M4jk8>?_83s'f<.!72R,m/^"KAkq?ssS/et6Ad92jj6t\UG;%A#&I2]Z4o#f+tg9k_Zk2r+6
+e)9&oGH]l2YcuJ`DapbYd5u-^/et6Ad92jj6t[b/;%?[2?Ie(q?G'RQDV_R-a-tW0m+!9L[Vab'"pROe
+8!Equ>,Yc*n#R,5<1)B-B45NgSLpX-BjA2h7?:OM)r>Ve?$@;PHF.tBV5:"r@<m-Df</Ch@q2c*>]ZJ-
+'p7XL[0C_,?bU/rLtY8[o1X"eF-mn8Umt.98G.5jkNB`eFE$!odgcBd$OaP2NgZC*Wj$eTItIDWE.f?-
+D5+?j[>E2:b$JXiA0`/YlJOQ;ZF8WNe>ZBXRc\eb>ualXb?$'I>q/NbU9cP]M9^7ehWLM\rh5)gqXVf_
+Fa8"JEpM;Y_<j$71XXO<SN(U5=L`J;da"CF2fIOm]=1D4QgoD9`%De%2UPZpg-k,8AT)PdG$n]cG^+JN
+L(0'!Mo"f@j5YH4\=2:/hqpXT1phGng?mY(?bCV<G&QJD0DcR:Lg;K(D5+?j[>E1ObMIUq\U(f6;jc46
+_UKnn$WEPYm+Ik^d]1ple_Ohn>q/NbU9cP]M9_^+=X^1oH)5BYYtKeM9lq/J2UU3a2[^p20Ak\&AsWj'
+S*2CsD5+@LD\e55?LGW[bUsX-2UPZpg-fT"hCK@E]cr&0QsD18D5+?j[>E2#]icb^H9&^GedSfVKrIdg
+(8a";fs<UF79$J#e.!ODWA(`:cGJ'X3d^R4+nt7:*PB8U;IO;RSV=%;FS>(G6GCu#+aA^oV8C_/3X\lU
+kj6ulKcI-p:@JUs980?>F;C`3dFkib$b96?d!+'0+a0h=[>E2Ge0[5'p1>Ipou]ta!+M9%;k)u%9PpN1
+B5\P@<j2GZ'kWd>;k)u%9PpN1B5\Qk<3MJC'kWd>;k)u%9PpN1B5\QsX'WmaGT.cKWA(`:cGJ'X3d^R4
+To829R(<=:/et6Ad92jj6taj&/9G(/b(Ec_>q/NbU9cP]M9_^+=m2f1(4oVT>q/NbU9cP]M9_^+=\)m_
+$`P(1lr%8,':jiV9m$*qbsL1M)&_a0+a0h=[>E2Ge0[5'p1>I@p6K4@%'`HZWD.IMVDciTZSr8oX(O,2
+L"W<>e0[3a;k*";fpd[2e[$.+_X(0/C(m.lWD.L.m*.jpoumWD0Y:;Og-fR^C(m.$HaD((4j0fD5jVBW
+C(m.lWD.L.m*.jap$;pe0Y:;Og-fR^C(m.$Ha=9c*[5i_fqlR8-9;N5S*94lRt\(mPi*9gQO6Z\kU]DE
+U9eKN(4th&Jle=F.SO]RZS8eDcCV^P@&7`@YtKeM9lq/J2UU3a[qgf9/'KU\VDch)R+ar@cee)?#-T_m
+<1)B-B45NgSNV>3J/c/<lr%8,':jiV9m$*qm1a[3$F<BZWD.IMVDciTZSr91l4LX-R+ar@@;6IHM<SFR
+@eGO_.SO]RZS8eDcG]@Z"0m0j/et6Ad92jj6t]tTfR[-f@[@F#S*2CsD5&g@4j)a=\T7uc*#Kb>J*3AH
+P1CdWO4^;Ge0[4LFkUIes&[hPLnuGq7gXS@n](_6"&i,s1G^i]giLg6oQ9G7`9IrH<1)CY3G40tZi@<F
+K\.?aoI,:2++O4!kFN'IB4ki^#7%G<]@OV5Z$JfNkt:gls7=#%YOY5h(/o&nG)/6S%"3PP)S*]Tb0%l\
+[;4sfk*f?r<\N%7nh>X7<,7<W+\Z`smL?=*]rGYSE8a-.bIVi^NZC44]Op9AP1RH+NoQ@!H(bH$b*=J\
+(B&/rb?]>JFnFnF$C)UOEI+5<j^l]nq>'jUQGLDR(8#bh*63&>@:Wmo*9]",/SPn4hahl0a'nN9o?TYn
+cpM/hq5#]>:/5]_]!Z8ta)RX+B6ecJf</B]!s?HY_](LM=Bo+4g;n7Ra)N*>E?*#=*63%=a!lZu1[S.4
+)SPtBq83f=h^,PFb0#Tf*]\9%NAo^mg*N>TLA%[M4YnrQ[<M(Gm@9@f:KFS26V9`CV*9>(oV"X-oK`-;
+gNWSjnZ$_&Umu.s.T5P+9MCD*NfIJek38b+ldi2mZ=Q[YIt-!$nYA"K?gXP\+\`%JX+LWfp@\*lq<"/H
+)`<f,d!hrOGk^[aY6Ud0GMdiCjQ'k%7Mo%KZr7\god3]g=05tuQ^;:V.*Q:A8jiL+^3o`s\GX2O05,`5
+-kf6G6i3^?o%%#`l17Hr()TrpZr7\gos?r+'VT_&/1d#9fJ/\u2]tig;Q?k_/#JGkOfC!:dDF7'h5d?D
+Br;TllY2:BOEfNgD$'kB3eXa8`P(-L?:qVJ,X41FV?>#A71s<OLa_qa1M>5/WMc?AZt\!g;l?YH@:4J[
+Sb.5$92!)fn3mt,k)pE?V['LD<:/MRGOO1h_pi8)#$Mri9"haE(gOQl*Zhc`L65Vtca;/lT"[87X`Vcl
+Y[*Uf5k[[P>jX\$p2&Qr2>Z*FNK+E!QT@A:^hO]M?T>/B51<7CHMXX3<t!kC1.[I;YM!ZOO,n57\2!iG
+Q8L]\1gB7,i$.+b++-nm#Qs*Cm3Lr@bfiI^h4-HE,$;?sl-dkJ4#_*7>eXrW<`W8n`-M+5G;\'>=/joP
+OX*;![3m:J2Jh$=:Y*_@WS4;5,XYh96c3]kY!)[KZbs\ug-sOA;(t2_:6M3/)>*WA28*)O@VBFgmFnu&
+[r9$+nR=r$XZ1Lj=Mn,<ehSDj&6J7RUG2I0,KUKulI"#,^p(#GDes7VbaC7e)o9l;51WUj8fBie$%5Z_
+/^8SVYBFX40=AAC/1^oW:*%Ap*63%=a)N*>E?*#=*63%=a)N*>E?*#=*63%=a/Os\l01'@eq@CIEu`5?
+MIpjJEQ=([pY9hNB<U>T:20XuVa!=ork)mIj#BeJ]_:&p;c?W+i7[EUNg$%M^I]ICbMYG"%=]o(dn`3a
+]QnQP?^YQ1j#Be[P(&TUl'K4DEf[:7r(=qhJ,J?I=4*:U-da"qE#co<P">FDl866aY.%ZHNooq[n%EB0
+=.(&KECs_PA`_^XF4"2UrUeQgs81[_X#4O.Va"GSf,PdNEMEC)\%b(SqK/sC_&JDHUGQMbnK0B-*61>V
+`,AQC8lPF%s5A"=E?#>#r8fRZ-74oDD9-&D5@!V9Ne?9fq==h%*rQ!*Iii!EBV>0IYON\eG9"XX:(Y(S
+o$l/g6i8;0-FN@c/pA;UZ&D0<YCHN:kUd^fQS2\Us%N8`C?%N`mPp6U_\iF4ElW/>a)N*>E?*#=S20p?
+J6cX2~>
+Q
+end end restore showpage
+
+%%Trailer
+%%EOF

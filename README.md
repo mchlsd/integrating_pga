@@ -6,5 +6,7 @@ Este repositório contém dados do Amplificador Integrador Programável por Puls
 Requisitos:
 
     Matlab R2019a ou superior
+    Maple
+    Mathematica
     Python 3
     WaveForms SDK
